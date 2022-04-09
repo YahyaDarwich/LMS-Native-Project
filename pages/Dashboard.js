@@ -1,9 +1,15 @@
-import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useState, useEffect } from "react";
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 import Card from "../components/Card";
-import { ScrollView } from "react-native";
 import { headers } from "../utils/token";
 
 export default function Dashboard({ navigation }) {
