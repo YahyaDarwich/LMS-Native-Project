@@ -19,16 +19,16 @@ export default function Dashboard({ navigation }) {
   const [countAdmin, setCountAdmin] = useState(undefined);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/class`, headers).then((res) => {
+    axios.get(`http://192.168.0.155:8000/api/class`, headers).then((res) => {
       setCountClass(res.data.count);
     });
-    axios.get(`http://localhost:8000/api/student`, headers).then((res) => {
+    axios.get(`http://192.168.0.155:8000/api/student`, headers).then((res) => {
       setCountStudent(res.data.count);
     });
-    axios.get(`http://localhost:8000/api/admin`, headers).then((res) => {
+    axios.get(`http://192.168.0.155:8000/api/admin`, headers).then((res) => {
       setCountAdmin(res.data.count);
     });
-    axios.get(`http://localhost:8000/api/course`, headers).then((res) => {
+    axios.get(`http://192.168.0.155:8000/api/course`, headers).then((res) => {
       setCountCourse(res.data.count);
     });
   }, []);
