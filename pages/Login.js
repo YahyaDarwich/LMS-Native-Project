@@ -61,7 +61,7 @@ const Login = ({ sendToken }) => {
 const styles = StyleSheet.create({
   input: {
     height: 60,
-    marginTop: 30,
+    marginTop: 20,
     marginBottom: 10,
     borderWidth: 2,
     padding: 10,

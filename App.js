@@ -7,6 +7,7 @@ import Reports from "./pages/Reports";
 import Attendances from "./pages/Attendances";
 import Login from "./pages/Login";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet } from "react-native";
 
 const MyTheme = {
   dark: true,
@@ -43,7 +44,7 @@ export default function App() {
           <Tab.Navigator
             initialRouteName="Dashboard"
             screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
+              tabBarIcon: ({ focused, color }) => {
                 let iconName;
                 if (route.name === "Dashboard") {
                   iconName = focused
@@ -89,14 +90,26 @@ export default function App() {
                 borderBottomRightRadius: 25,
               },
               headerTitleStyle: {
-                color: "#f7f7fb",
+                color: "#00B386",
                 fontWeight: "bold",
+                paddingLeft: 5,
               },
             })}
           >
             <Tab.Screen
               name="Dashboard"
               children={() => <Dashboard headers={headers} />}
+              options={{
+                headerRight: () => (
+                  <MaterialCommunityIcons
+                    name="logout"
+                    size={30}
+                    style={styles.Logout}
+                    color="#fff"
+                    onPress={() => setHeaders(undefined)}
+                  />
+                ),
+              }}
             />
             <Tab.Screen
               name="Reports"
@@ -118,3 +131,9 @@ export default function App() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  Logout: {
+    paddingRight: 15,
+  },
+});

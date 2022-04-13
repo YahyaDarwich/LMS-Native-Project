@@ -4,7 +4,7 @@ import axios from "axios";
 import AttendanceCard from "../components/AttendanceCard";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/AntDesign";
-import {IP} from "@env"
+import { IP } from "@env";
 
 export default function Attendances(props) {
   var today = new Date();
@@ -22,10 +22,7 @@ export default function Attendances(props) {
   useEffect(() => {
     const getClasses = async () => {
       try {
-        const res = await axios.get(
-          `http://${IP}/api/class`,
-          props.headers
-        );
+        const res = await axios.get(`http://${IP}/api/class`, props.headers);
         setClasses(res.data.data);
         setClass_id(res.data.data[0].id);
       } catch (err) {
@@ -90,10 +87,7 @@ export default function Attendances(props) {
     setAttendances({});
     const getStudents = async () => {
       try {
-        const res1 = await axios.get(
-          `http://${IP}/api/class`,
-          props.headers
-        );
+        const res1 = await axios.get(`http://${IP}/api/class`, props.headers);
         setClasses(res1.data.data);
         const res2 = await axios.get(
           `http://${IP}/api/class/${class_id}`,
@@ -163,7 +157,7 @@ export default function Attendances(props) {
       <View style={styles.ButtonContainer}>
         <Button
           icon={<Icon name="save" size={25} color="white" />}
-          title="Save "
+          title="Save"
           onPress={() => {
             handleSave();
           }}
@@ -176,12 +170,17 @@ export default function Attendances(props) {
 const styles = StyleSheet.create({
   DateContainer: {
     backgroundColor: "rgb(255, 69, 58)",
+    height: 50,
+    marginBottom: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   Text: {
     fontWeight: "bold",
-    fontSize: 23,
+    fontSize: 20,
     color: "white",
-    margin: 20,
+    marginLeft: 10,
   },
   PickerContainer: {
     marginVertical: 10,
@@ -222,5 +221,6 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginTop: 20,
     marginBottom: 30,
+    backgroundColor: "#195bcb",
   },
 });
