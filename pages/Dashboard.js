@@ -10,26 +10,32 @@ import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import Card from "../components/Card";
-import { headers } from "../utils/token";
+import { useNavigation } from '@react-navigation/native';
+import {IP} from "@env"
 
-export default function Dashboard({ navigation }) {
+export default function Dashboard({ headers }) {
   const [countClass, setCountClass] = useState(undefined);
   const [countStudent, setCountStudent] = useState(undefined);
   const [countCourse, setCountCourse] = useState(undefined);
   const [countAdmin, setCountAdmin] = useState(undefined);
+  const [adminName, setAdminName] = useState(undefined);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get(`http://192.168.0.155:8000/api/class`, headers).then((res) => {
+    axios.get(`http://${IP}/api/class`, headers).then((res) => {
       setCountClass(res.data.count);
     });
-    axios.get(`http://192.168.0.155:8000/api/student`, headers).then((res) => {
+    axios.get(`http://${IP}/api/student`, headers).then((res) => {
       setCountStudent(res.data.count);
     });
-    axios.get(`http://192.168.0.155:8000/api/admin`, headers).then((res) => {
+    axios.get(`http://${IP}/api/admin`, headers).then((res) => {
       setCountAdmin(res.data.count);
     });
-    axios.get(`http://192.168.0.155:8000/api/course`, headers).then((res) => {
+    axios.get(`http://${IP}/api/course`, headers).then((res) => {
       setCountCourse(res.data.count);
+    });
+    axios.get(`http://${IP}/api/logeduser`, headers).then((res) => {
+      setAdminName(res.data.user.name);
     });
   }, []);
 
@@ -37,7 +43,10 @@ export default function Dashboard({ navigation }) {
     <>
       <ScrollView>
         <View>
-          <Text style={styles.Text}>Hello, {"\n"}Yahya Darwich 👋</Text>
+          <Text style={styles.Text}>
+            Hello, {"\n"}
+            {adminName} 👋
+          </Text>
         </View>
 
         {/* MainActions */}

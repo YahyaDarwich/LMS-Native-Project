@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "./pages/Dashboard";
 import Reports from "./pages/Reports";
 import Attendances from "./pages/Attendances";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Login from "./pages/Login";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const MyTheme = {
@@ -19,71 +19,102 @@ const MyTheme = {
     notification: "rgb(255, 69, 58)",
   },
 };
+
 const Tab = createBottomTabNavigator();
 export default function App() {
+  const [token, setToken] = useState(undefined);
+  const [headers, setHeaders] = useState(undefined);
+
+  const sendTokenToParent = (token) => {
+    setToken(token);
+    console.log(token);
+    const headers = { headers: { Authorization: `Bearer ${token}` } };
+    setHeaders(headers);
+    //save(token);
+  };
+  // async function save(value) {
+  //   await SecureStore.setItemAsync("TOKEN", value);
+  // }
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer theme={MyTheme}>
-        <Tab.Navigator
-          initialRouteName="Dashboard"
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-              if (route.name === "Dashboard") {
-                iconName = focused
-                  ? "view-dashboard"
-                  : "view-dashboard-outline";
-              } else if (route.name === "Reports") {
-                iconName = focused
-                  ? "chart-bell-curve-cumulative"
-                  : "chart-bell-curve";
-              } else if (route.name === "Attendances") {
-                iconName = focused
-                  ? "calendar-account"
-                  : "calendar-account-outline";
-              }
-              return (
-                <MaterialCommunityIcons
-                  name={iconName}
-                  size={35}
-                  color={color}
-                />
-              );
-            },
-            tabBarActiveTintColor: "tomato",
-            tabBarInactiveTintColor: "gray",
-            //tabBarActiveBackgroundColor: "#ddd",
-            // tabBarInactiveBackgroundColor: "#dfd",
-            tabBarStyle: {
-              height: 70,
-              paddingBottom: 10,
-              paddingTop: 5,
-              backgroundColor: "#262a34",
-              // borderTopLeftRadius: 25,
-              // borderTopRightRadius: 25,
-            },
-            tabBarLabelStyle: {
-              fontSize: 12,
-              fontWeight: "bold",
-            },
-            headerStyle: {
-              height: 90,
-              backgroundColor: "#181920",
-              borderBottomLeftRadius: 25,
-              borderBottomRightRadius: 25,
-            },
-            headerTitleStyle: {
-              color: "#f7f7fb",
-              fontWeight: "bold",
-            },
-          })}
-        >
-          <Tab.Screen name="Dashboard" component={Dashboard} />
-          <Tab.Screen name="Reports" component={Reports} />
-          <Tab.Screen name="Attendances" component={Attendances} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      {headers ? (
+        <NavigationContainer theme={MyTheme}>
+          <Tab.Navigator
+            initialRouteName="Dashboard"
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                if (route.name === "Dashboard") {
+                  iconName = focused
+                    ? "view-dashboard"
+                    : "view-dashboard-outline";
+                } else if (route.name === "Reports") {
+                  iconName = focused
+                    ? "chart-bell-curve-cumulative"
+                    : "chart-bell-curve";
+                } else if (route.name === "Attendances") {
+                  iconName = focused
+                    ? "calendar-account"
+                    : "calendar-account-outline";
+                }
+                return (
+                  <MaterialCommunityIcons
+                    name={iconName}
+                    size={35}
+                    color={color}
+                  />
+                );
+              },
+              tabBarActiveTintColor: "tomato",
+              tabBarInactiveTintColor: "gray",
+              //tabBarActiveBackgroundColor: "#ddd",
+              // tabBarInactiveBackgroundColor: "#dfd",
+              tabBarStyle: {
+                height: 70,
+                paddingBottom: 10,
+                paddingTop: 5,
+                backgroundColor: "#262a34",
+                // borderTopLeftRadius: 25,
+                // borderTopRightRadius: 25,
+              },
+              tabBarLabelStyle: {
+                fontSize: 12,
+                fontWeight: "bold",
+              },
+              headerStyle: {
+                height: 90,
+                backgroundColor: "#181920",
+                borderBottomLeftRadius: 25,
+                borderBottomRightRadius: 25,
+              },
+              headerTitleStyle: {
+                color: "#f7f7fb",
+                fontWeight: "bold",
+              },
+            })}
+          >
+            <Tab.Screen
+              name="Dashboard"
+              children={() => <Dashboard headers={headers} />}
+            />
+            <Tab.Screen
+              name="Reports"
+              children={() => {
+                return <Reports headers={headers} />;
+              }}
+            />
+            <Tab.Screen
+              name="Attendances"
+              children={() => {
+                return <Attendances headers={headers} />;
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      ) : (
+        <Login sendToken={sendTokenToParent} />
+      )}
     </>
   );
 }

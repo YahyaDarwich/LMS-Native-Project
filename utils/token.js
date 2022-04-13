@@ -1,3 +1,0 @@
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0OTY1Nzk3NywiZXhwIjoxNjQ5NjYxNTc3LCJuYmYiOjE2NDk2NTc5NzcsImp0aSI6ImtSZnQ3VzZvczZxMjkyWWQiLCJzdWIiOjksInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.2hQDIhd9zGRgj26J6C5bbd9EVN_IagAJGIi9UD6UVEg";
-export const headers = { headers: { Authorization: `Bearer ${token}` } };

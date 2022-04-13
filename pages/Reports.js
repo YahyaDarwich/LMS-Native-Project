@@ -5,9 +5,9 @@ import axios from "axios";
 import { PieChart } from "react-native-chart-kit";
 import PureChart from "react-native-pure-chart";
 import { Dimensions } from "react-native";
-import { headers } from "../utils/token";
+import {IP} from "@env"
 
-export default function Reports() {
+export default function Reports(props) {
   const [allData, setAllData] = useState([]);
   const [classes, setClasses] = useState([]);
   const [class_id, setClass_id] = useState();
@@ -22,8 +22,14 @@ export default function Reports() {
   const [weekData, setWeekData] = useState([]);
 
   useEffect(() => {
+    // const getValueFor = async () => {
+    //   let token = await SecureStore.getItemAsync("TOKEN");
+    //   const headers = { headers: { Authorization: `Bearer ${token}` } };
+    //   setHeaders(headers);
+    // };
+    // getValueFor();
     axios
-      .get(`http://192.168.0.155:8000/api/class`, headers)
+      .get(`http://${IP}/api/class`, props.headers)
       .then((res) => {
         if (res.status === 200) {
           setClasses(res.data.data);
@@ -37,7 +43,7 @@ export default function Reports() {
   useEffect(() => {
     if (class_id) {
       axios
-        .get(`http://192.168.0.155:8000/api/class/${class_id}`, headers)
+        .get(`http://${IP}/api/class/${class_id}`, props.headers)
         .then((res) => {
           if (res.status === 200) {
             setSections(res.data.data.sections);
@@ -52,7 +58,7 @@ export default function Reports() {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.155:8000/api/section/${section_id}`, headers)
+      .get(`http://${IP}/api/section/${section_id}`, props.headers)
       .then((res) => {
         console.log(res.data.data.students);
         setSection_name(res.data.data.name);
@@ -122,6 +128,7 @@ export default function Reports() {
             fontWeight: "bold",
           },
         ]);
+
         let datesarray = [];
         studentsarray[0].attendance.slice(-10).forEach((attendance) => {
           datesarray.push(attendance["date"]);
@@ -198,7 +205,7 @@ export default function Reports() {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.155:8000/api/status`, headers)
+      .get(`http://${IP}/api/status`, props.headers)
       .then((res) => {
         const present = res.data.data[0].attendance.length;
         const late = res.data.data[1].attendance.length;
