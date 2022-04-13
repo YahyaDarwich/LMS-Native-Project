@@ -28,7 +28,6 @@ export default function App() {
 
   const sendTokenToParent = (token) => {
     setToken(token);
-    console.log(token);
     const headers = { headers: { Authorization: `Bearer ${token}` } };
     setHeaders(headers);
     //save(token);

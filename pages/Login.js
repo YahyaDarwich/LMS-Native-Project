@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, SafeAreaView, StyleSheet } from "react-native";
+import { Text, TextInput, StyleSheet, ToastAndroid } from "react-native";
 import axios from "axios";
 import { IP } from "@env";
 import Button from "../components/Button";
@@ -9,6 +9,15 @@ import Header from "../components/Header";
 const Login = ({ sendToken }) => {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
+
+  // Toast
+  const toastMessage = (message) => {
+    ToastAndroid.showWithGravity(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+    );
+  };
 
   const handleSubmit = () => {
     const loginINfo = {
@@ -21,9 +30,10 @@ const Login = ({ sendToken }) => {
       .then((res) => {
         if (res.status === 200) {
           sendToken(res.data.token);
+          toastMessage("You're login successfully");
         }
       })
-      .catch((err) => console.log(`Error ${err}`));
+      .catch((err) => toastMessage(err.response.data.error));
   };
 
   return (

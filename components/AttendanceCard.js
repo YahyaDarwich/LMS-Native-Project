@@ -72,7 +72,7 @@ const AttendanceCard = ({ student, setAttendances, today, headers }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#becbe9",
+    backgroundColor: "#a7dee1",
     width: "100%",
 
     borderRadius: 18,
