@@ -29,7 +29,7 @@ export default function Reports(props) {
     // };
     // getValueFor();
     axios
-      .get(`http://${IP}/api/class`, props.headers)
+      .get(`http://192.168.0.117:8000/api/class`, props.headers)
       .then((res) => {
         if (res.status === 200) {
           setClasses(res.data.data);
@@ -43,7 +43,7 @@ export default function Reports(props) {
   useEffect(() => {
     if (class_id) {
       axios
-        .get(`http://${IP}/api/class/${class_id}`, props.headers)
+        .get(`http://192.168.0.117:8000/api/class/${class_id}`, props.headers)
         .then((res) => {
           if (res.status === 200) {
             setSections(res.data.data.sections);
@@ -58,7 +58,7 @@ export default function Reports(props) {
 
   useEffect(() => {
     axios
-      .get(`http://${IP}/api/section/${section_id}`, props.headers)
+      .get(`http://192.168.0.117:8000/api/section/${section_id}`, props.headers)
       .then((res) => {
         console.log(res.data.data.students);
         setSection_name(res.data.data.name);
@@ -205,7 +205,7 @@ export default function Reports(props) {
 
   useEffect(() => {
     axios
-      .get(`http://${IP}/api/status`, props.headers)
+      .get(`http://192.168.0.117:8000/api/status`, props.headers)
       .then((res) => {
         const present = res.data.data[0].attendance.length;
         const late = res.data.data[1].attendance.length;

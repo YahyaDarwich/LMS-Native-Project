@@ -11,7 +11,7 @@ const AttendanceCard = ({ student, setAttendances, today, headers }) => {
   const [attendance, setAttendance] = useState();
 
   useEffect(() => {
-    axios.get(`http://${IP}/api/status`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/status`, headers).then((res) => {
       if (res.status === 200) {
         setStatuses(res.data.data);
       }

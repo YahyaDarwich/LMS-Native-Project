@@ -22,19 +22,19 @@ export default function Dashboard({ headers }) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get(`http://${IP}/api/class`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/class`, headers).then((res) => {
       setCountClass(res.data.count);
     });
-    axios.get(`http://${IP}/api/student`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/student`, headers).then((res) => {
       setCountStudent(res.data.count);
     });
-    axios.get(`http://${IP}/api/admin`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/admin`, headers).then((res) => {
       setCountAdmin(res.data.count);
     });
-    axios.get(`http://${IP}/api/course`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/course`, headers).then((res) => {
       setCountCourse(res.data.count);
     });
-    axios.get(`http://${IP}/api/logeduser`, headers).then((res) => {
+    axios.get(`http://192.168.0.117:8000/api/logeduser`, headers).then((res) => {
       setAdminName(res.data.user.name);
     });
   }, []);

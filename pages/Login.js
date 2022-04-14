@@ -26,7 +26,7 @@ const Login = ({ sendToken }) => {
     };
 
     axios
-      .post(`http://${IP}/api/login`, loginINfo)
+      .post(`http://192.168.0.117:8000/api/login`, loginINfo)
       .then((res) => {
         if (res.status === 200) {
           sendToken(res.data.token);

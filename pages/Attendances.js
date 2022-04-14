@@ -22,7 +22,7 @@ export default function Attendances(props) {
   useEffect(() => {
     const getClasses = async () => {
       try {
-        const res = await axios.get(`http://${IP}/api/class`, props.headers);
+        const res = await axios.get(`http://192.168.0.117:8000/api/class`, props.headers);
         setClasses(res.data.data);
         setClass_id(res.data.data[0].id);
       } catch (err) {
@@ -74,7 +74,7 @@ export default function Attendances(props) {
     Attendances.forEach(async (attendance) => {
       try {
         const res = await axios.post(
-          `http://${IP}/api/attendance`,
+          `http://192.168.0.117:8000/api/attendance`,
           attendance,
           props.headers
         );
@@ -87,10 +87,10 @@ export default function Attendances(props) {
     setAttendances({});
     const getStudents = async () => {
       try {
-        const res1 = await axios.get(`http://${IP}/api/class`, props.headers);
+        const res1 = await axios.get(`http://192.168.0.117:8000/api/class`, props.headers);
         setClasses(res1.data.data);
         const res2 = await axios.get(
-          `http://${IP}/api/class/${class_id}`,
+          `http://192.168.0.117:8000/api/class/${class_id}`,
           props.headers
         );
         setSections(res2.data.data.sections);
